@@ -88,12 +88,32 @@
 		</div>
 
 		<div class="messages" #scrollMe>
-			<ul>
-				<li [class]="msg.type" *ngFor="let msg of activeUser?.messages">
-					<img [src]="msg.type === 'sent' ? activeUser.img : messageReceivedFrom.img" alt="" />
+			<!-- <ul>
+				<li [class]="msg.u._id==userId?'sent':'replies'" *ngFor="let msg of messagesArray">
+					<img [src]="msg.u._id==userId ? activeUser.img : messageReceivedFrom.img" alt="" />
 					<div>
-						<p>{{msg?.message || ''}}</p>
-						<label>4:00 PM <ion-icon *ngIf="msg.type === 'sent'" name="checkmark-done-outline"></ion-icon></label>
+						<p>{{msg?.msg || ''}}</p>
+						<label>{{ (msg?.ts?.$date | date: 'shortTime') | slice: 0:5 }} {{ (msg?.ts?.$date | date: 'a') }}
+						@if (msg.u._id==userId) {
+							<ion-icon name="checkmark-done-outline"></ion-icon>
+						}
+						</label>
+					</div>
+				</li>
+			</ul> -->
+			<ul>
+				<li class="start color-info-font-color">
+					<div class="rcx-box rcx-box--full rcx-css-1oytvro">
+						<div class="rcx-box rcx-box--full rcx-css-10ucj9q">
+							<span class="rcx-box rcx-box--full rcx-css-1eogw2f">
+								<figure class="rcx-box rcx-box--full rcx-avatar rcx-avatar--x48">
+									<img src="/avatar/kiranharidas" class="rcx-avatar__element rcx-avatar__element--x48" aria-hidden="true" data-username="kiranharidas" title="kiranharidas">
+								</figure>
+							</span>
+						</div>
+						<div class="rcx-box rcx-box--full rcx-css-g277tj">You have joined a new direct message with</div>
+						<div class="rcx-box rcx-box--full rcx-css-1trxkp4"><a class="rcx-box rcx-box--full  rcx-tag rcx-tag--large rcx-tag--clickable rcx-css-1eogw2f" href="/direct/kiranharidas" data-username="kiranharidas"><i aria-hidden="true" class="rcx-box rcx-box--full rcx-icon--name-user rcx-icon rcx-css-4pvxx3"></i><span class="rcx-tag__inner">kiranharidas</span></a>
+						</div>
 					</div>
 				</li>
 			</ul>

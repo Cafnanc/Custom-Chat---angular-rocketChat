@@ -31,4 +31,9 @@
     font-size: smaller;
     color: white;
   }
-  
+ ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 21px 0 10px;
+ }
