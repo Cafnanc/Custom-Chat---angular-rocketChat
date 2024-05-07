@@ -78,8 +78,8 @@
 					<img [src]="activeUser.img" alt="User image" />
 				</div>
 				<div class="header-details">
-					<h5>{{activeUser.name}}</h5>
-					<p>{{activeUser.status}}</p>
+					<h5>{{user?.name}}</h5>
+					<p>{{user?.status}}</p>
 				</div>
 				<ion-button class="more-vertical-ellipsis" (click)="moreOptions($event)">
 					<ion-icon name="ellipsis-vertical"></ion-icon>
@@ -89,11 +89,15 @@
 
 		<div class="messages" #scrollMe>
 			<ul>
-				<li [class]="msg.type" *ngFor="let msg of activeUser?.messages">
-					<img [src]="msg.type === 'sent' ? activeUser.img : messageReceivedFrom.img" alt="" />
+				<li [class]="msg.u._id==userId?'sent':'replies'" *ngFor="let msg of messagesArray">
+					<img [src]="msg.u._id==userId ? activeUser.img : messageReceivedFrom.img" alt="" />
 					<div>
-						<p>{{msg?.message || ''}}</p>
-						<label>4:00 PM <ion-icon *ngIf="msg.type === 'sent'" name="checkmark-done-outline"></ion-icon></label>
+						<p>{{msg?.msg || ''}}</p>
+						<label>{{ (msg?.ts?.$date | date: 'shortTime') | slice: 0:5 }} {{ (msg?.ts?.$date | date: 'a') }}
+						@if (msg.u._id==userId) {
+							<ion-icon name="checkmark-done-outline"></ion-icon>
+						}
+						</label>
 					</div>
 				</li>
 			</ul>
@@ -102,26 +106,12 @@
 		<div class="message-input">
 			<div class="wrap">
 				<input type="text" #msgInput placeholder="Write your message..." (keyup.enter)="addNewMessage(msgInput)" />
-				<ion-icon class="attachment" name="attach"></ion-icon>
+				<!-- <ion-icon class="attachment" name="attach"></ion-icon> -->
 				<button class="submit" (click)="addNewMessage(msgInput)">
 					<ion-icon name="send"></ion-icon>
 				</button>
 			</div>
 		</div>
-		
 
-		<!-- <div class="message-input">
-			<div class="wrap">
-				<input type="text" #msgInput placeholder="Write your message..."
-					(keyup.enter)="addNewMessage(msgInput)" />
-				<ion-icon class="attachment" name="attach"></ion-icon>
-				<ion-button>
-					<ion-icon slot="icon-only" name="heart"></ion-icon>
-				</ion-button> 
-				<button class="submit" (click)="addNewMessage(msgInput)">
-					<i class="fa fa-paper-plane" aria-hidden="true"></i>
-				</button>
-			</div>
-		</div> -->
 	</div>
 </div>
